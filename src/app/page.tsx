@@ -5,7 +5,7 @@ import CategoryCarousel from "./components/CategoryCarousel";
 import ProductContainer from "./components/ProductContainer";
 export default function Home() {
   return (
-    <div className="w-11/12 xl:w-9/12 m-auto py-6 h-auto">
+    <div className="w-11/12 xl:w-9/12 m-auto py-2 h-auto">
       {/* This is the hero section */}
       <div className="bg-slate-100 px-8 py-14 h-auto rounded-lg flex items-center justify-between">
         {/* This is the hero description section */}
@@ -14,7 +14,7 @@ export default function Home() {
             A Warm Welcome to Bella &{" "}
             <span className="text-green-500">Pepper’s</span> Taste of Korea
           </h1>
-          <p className="text-slate-500 py-4 text-xs lg:text-sm">
+          <p className="text-slate-500 py-4 text-sm">
             Authentic Korean Beverages & Cuisine – Indulge in the Rich Flavors
             of Korea with Our Selection of Traditional Drinks, Savory Dishes,
             and Sweet Treats. From Refreshing Korean Teas to Classic Delicacies,
