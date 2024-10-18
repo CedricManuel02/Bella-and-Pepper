@@ -14,7 +14,7 @@ export default function CategoryCarousel() {
       <Carousel plugins={[plugin.current]} className="w-full" onMouseEnter={plugin.current.stop} onMouseLeave={plugin.current.reset}>
         <CarouselContent className="-ml-1">
           {Array.from({ length: 8 }).map((_, index) => (
-            <CarouselItem key={index} className="pl-1 basis-1/2 sm md:basis-1/4 lg:basis-1/5">
+            <CarouselItem key={index} className="pl-1 sm:basis-1/2 md:basis-1/4 lg:basis-1/5">
               <div className="p-1">
                 <Card className="cursor-pointer shadow-xs border-slate-300">
                   <CardContent className="flex flex-col gap-5 h-auto items-center justify-center p-6">

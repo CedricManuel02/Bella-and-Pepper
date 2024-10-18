@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default function ProductContainer() {
   return (
-    <React.Fragment>
+    <div className="pb-10">
       <Header text={"Products"} url={"/"} />
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
        {Array.from({length: 15}).map((_, index) => (
@@ -22,7 +22,7 @@ export default function ProductContainer() {
              loading="lazy"
            />
            <section className="w-full">
-             <h3 className="text-slate-700 text-xs sm:text-sm font-semibold ">Samyang Buldak Carbonara</h3>
+             <h3 className="text-slate-700 text-xs sm:text-sm font-medium">Samyang Buldak Carbonara</h3>
              <div className="flex items-center gap-2">
                <div className="flex items-center justify-start">
                  <Star fill="orange" size={14} strokeWidth={0}/>
@@ -34,7 +34,7 @@ export default function ProductContainer() {
                <p className="text-slate-500 text-xs sm:text-sm font-medium">4.5</p>
              </div>
              <div className="flex items-center gap-2">
-               <h4 className="text-green-500 font-semibold">₱59.00</h4>
+               <h4 className="text-green-500 font-medium">₱59.00</h4>
                <p className="line-through text-xs sm:text-sm text-slate-500">₱78.00</p>
              </div>
            </section>
@@ -42,6 +42,6 @@ export default function ProductContainer() {
        </Card>
        ))}
       </div>
-    </React.Fragment>
+    </div>
   );
 }
