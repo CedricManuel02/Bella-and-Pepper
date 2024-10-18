@@ -8,13 +8,7 @@ export default function Footer() {
       <div className="w-full xl:w-9/12 m-auto">
         <footer className="footer text-base-content p-10">
           <aside>
-            <Image
-              src={logo}
-              alt="Picture of the author"
-              width={100}
-              height={100}
-              loading="lazy"
-            />
+            <Image src={logo} alt="logo" width={100} height={100} loading="lazy"/>
             <p className="font-semibold">
               Bella & <span className="text-green-600">Pepper</span>
               <br />

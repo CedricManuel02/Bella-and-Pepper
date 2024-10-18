@@ -17,10 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="nord">
       <body>
+        <NavigationBar/>
+        <LinkContainer/>
         {children}
         <Footer/>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet" type="text/css" />
-      <script src="https://cdn.tailwindcss.com"></script>
       </body>
     </html>
   );

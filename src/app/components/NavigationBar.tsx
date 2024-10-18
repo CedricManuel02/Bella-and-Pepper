@@ -24,11 +24,11 @@ export default function NavigationBar() {
     if (search !== "") return router.push(`/product?query=${search}`);
   };
   return (
-    <nav className="w-9/12 m-auto flex items-center justify-between py-6">
+    <nav className="w-11/12 xl:w-9/12 m-auto flex items-center justify-between py-6">
       {/* Logo Section */}
       <Link href={"/"} className="flex items-center gap-2 cursor-pointer">
         <Image src={logo} alt="Picture of the author" width={40} height={40} loading="lazy"/>
-        <h2 className="font-semibold text-slate-700">
+        <h2 className="font-semibold text-slate-700 hidden md:block">
           Bella & <span className="text-green-600">Pepper</span>
         </h2>
       </Link>
@@ -37,7 +37,7 @@ export default function NavigationBar() {
         <Input
           type="text"
           placeholder="Search..."
-          value={`${search}`}
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
           required
         />
@@ -68,7 +68,7 @@ export default function NavigationBar() {
             </Avatar>
           </DropdownMenuTrigger>
           {/*This is the drop down content */}
-          <DropdownMenuContent className="w-56 my-2 mr-44">
+          <DropdownMenuContent className="w-56 border-none shadow-md mr-5">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
