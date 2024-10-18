@@ -21,7 +21,7 @@ export default function NavigationBar() {
   const router = useRouter();
   const [search, setSearch] = useState<string>("");
   const searchProduct = () => {
-    if (search !== "") return router.push(`/product?query=${search}`);
+    if (search !== "") return router.push(`/product/${search}`);
   };
   return (
     <nav className="w-11/12 xl:w-9/12 m-auto flex items-center justify-between py-6">
