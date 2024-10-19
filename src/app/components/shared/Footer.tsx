@@ -5,12 +5,12 @@ import Link from "next/link";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
 export default function Footer() {
   return (
-    <div className="w-full bg-base-200">
+    <div className="w-full bg-base-200" >
       <div className="w-full xl:w-9/12 m-auto">
         <footer className="footer text-base-content p-10">
           <nav>
             <h6 className="footer-title">Navigation</h6>
-            <Link href={"#"} className="link link-hover">
+            <Link href={"/"} className="link link-hover">
               Home
             </Link>
             <Link href={"#"} className="link link-hover">
@@ -48,10 +48,10 @@ export default function Footer() {
               height={50}
               loading="lazy"
             />
-            <p>
-              ACME Industries Ltd.
+            <p className="font-medium">
+              Bella and <span className="text-green-500">Pepper’s</span>
               <br />
-              Providing reliable food and beverages
+              <span className="text-slate-500">Providing quality korean food and beverages</span>
             </p>
           </aside>
           <nav className="md:place-self-center md:justify-self-end">
