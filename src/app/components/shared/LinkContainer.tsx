@@ -5,13 +5,11 @@ import React from 'react'
 export default function LinkContainer() {
   const pathname = usePathname();
   return (
-   <div className="hidden sm:block" >
+   <div className="hidden md:block" >
      <nav className="w-full bg-base-200 py-4 flex items-center gap-6 justify-center text-xs lg:text-sm">
       <Link href="/" className={pathname === "/" ? "text-green-500 underline font-medium" : "text-slate-500 font-normal"}>Home</Link>
       <Link href="/product" className={pathname === "/product" ? "text-green-500 underline font-medium" : "text-slate-500 font-normal"}>Product</Link>
-      <Link href="#" className="text-slate-500 font-normal">Category</Link>
-      <Link href="#" className="text-slate-500 font-normal">About Us</Link>
-      <Link href="#" className="text-slate-500 font-normal">Contact Us</Link>
+      <Link href="#about" className="text-slate-500 font-normal">About Us</Link>
     </nav>
    </div>
   )

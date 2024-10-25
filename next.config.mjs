@@ -14,6 +14,12 @@ const nextConfig = {
             port: '',
             pathname: '/cdn/shop/products/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'wimg.mk.co.kr',
+            port: '',
+            pathname: '/news/cms/202409/27/**',
+          },
         ],
       },
 };

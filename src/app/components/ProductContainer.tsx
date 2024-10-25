@@ -1,20 +1,18 @@
 import React from "react";
-import Header from "./Header";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Header from "@/app/components/shared/Header";
 import { Card, CardContent } from "@/components/ui/card";
+import ProductCardContainer from "@/app/components/shared/ProductCardContainer";
 
 export default function ProductContainer() {
   return (
     <div className="pb-10">
       <Header text={"Products"} url={"/"} />
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+      <ProductCardContainer>
         {Array.from({ length: 15 }).map((_, index) => (
-          <Card
-            key={index}
-            className="h-auto cursor-pointer relative shadow-sm border-slate-300"
-          >
+          <Card key={index} className="h-auto cursor-pointer relative shadow-sm border-slate-300">
             <CardContent className="flex flex-col gap-5 h-auto items-center justify-center p-4">
               <Badge variant={"default"} className="bg-green-400 hover:bg-green-400 text-white rounded-full absolute top-2 left-2">
                 Sale
@@ -54,7 +52,7 @@ export default function ProductContainer() {
             </CardContent>
           </Card>
         ))}
-      </div>
+      </ProductCardContainer>
     </div>
   );
 }

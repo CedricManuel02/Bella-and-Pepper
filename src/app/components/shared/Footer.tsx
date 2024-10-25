@@ -13,22 +13,14 @@ export default function Footer() {
             <Link href={"/"} className="link link-hover">
               Home
             </Link>
-            <Link href={"#"} className="link link-hover">
+            <Link href={"/product"} className="link link-hover">
               Product
             </Link>
-            <Link href={"#"} className="link link-hover">
-              Category
+            <Link href={"#about"} className="link link-hover">
+              About Us
             </Link>
           </nav>
-          <nav>
-            <h6 className="footer-title">Information</h6>
-            <Link href={"#"} className="link link-hover">
-              About us
-            </Link>
-            <Link href={"#"} className="link link-hover">
-              Contact
-            </Link>
-          </nav>
+        
           <nav>
             <h6 className="footer-title">Legal</h6>
             <Link href={"#"} className="link link-hover">

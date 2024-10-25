@@ -14,40 +14,43 @@ import React from "react";
 export default function Product() {
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-5">
-      <div className="flex flex-row items-center justify-end gap-4 py-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-5">
+        <h1 className="text-slate-700 font-semibold text-md lg:text-xl">Browse our products</h1>
         {/* Select Section */}
-        <Select>
-          <SelectTrigger className="w-full lg:w-44">
-            <SelectValue placeholder="Select category" />
-          </SelectTrigger>
-          <SelectContent className="border-none shadow-md">
-            <SelectItem className="cursor-pointer" value="Noodles">
-              Noodles
-            </SelectItem>
-            <SelectItem className="cursor-pointer" value="Drinks">
-              Drinks
-            </SelectItem>
-            <SelectItem className="cursor-pointer" value="Snacks">
-              Snacks
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className="w-full lg:w-44">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent className="border-none shadow-md">
-            <SelectItem className="cursor-pointer" value="Name">
-              Name
-            </SelectItem>
-            <SelectItem className="cursor-pointer" value="Price">
-              Price
-            </SelectItem>
-            <SelectItem className="cursor-pointer" value="Best-Selling">
-              Best Selling
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex items-center gap-2">
+          <Select>
+            <SelectTrigger className="w-full lg:w-44">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent className="border-none shadow-md">
+              <SelectItem className="cursor-pointer" value="Noodles">
+                Noodles
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="Drinks">
+                Drinks
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="Snacks">
+                Snacks
+              </SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger className="w-full lg:w-44">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent className="border-none shadow-md">
+              <SelectItem className="cursor-pointer" value="Name">
+                Name
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="Price">
+                Price
+              </SelectItem>
+              <SelectItem className="cursor-pointer" value="Best-Selling">
+                Best Selling
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
         {Array.from({ length: 15 }).map((_, index) => (
