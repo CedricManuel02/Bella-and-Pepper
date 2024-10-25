@@ -1,9 +1,7 @@
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import Link from 'next/link'
 import React from 'react'
 
 export default function RegisterModal() {
@@ -17,7 +15,7 @@ export default function RegisterModal() {
         <DialogHeader>
           <DialogTitle>Register</DialogTitle>
           <DialogDescription>
-            Let's connect to your favorite food!
+            Let&apos;s connect to your favorite food!
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
