@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Star, Trash2Icon } from "lucide-react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 
 const formsCheckoutSchema = z.object({
@@ -47,7 +47,7 @@ export default function Checkout() {
         <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-5 flex gap-10 justify-center items-center flex-col-reverse md:flex-row">
             {/* Information */}
             <div className="w-full md:w-10/12 md:h-screen md:py-10">
-                <h3 className="font-semibold text-sm text-slate-700">Information</h3>
+                <h3 className="font-semibold text-sm text-slate-700 py-4">Information</h3>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
                         <div className="flex items-center justify-between gap-2 ">
@@ -183,7 +183,7 @@ export default function Checkout() {
             </div>
             {/* Product */}
             <div className="w-full md:w-8/12 md:h-screen md:py-10">
-                <h3 className="font-semibold text-sm text-slate-700">Product</h3>
+                <h3 className="font-semibold text-sm text-slate-700 py-4">Product</h3>
                 <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <Image
@@ -196,21 +196,9 @@ export default function Checkout() {
                         loading="lazy"
                     />
                     <section>
-                        <h3 className="text-slate-700 text-xs font-medium">
+                        <h3 className="text-slate-700 text-xs md:text-sm font-medium">
                             Samyang Buldak Carbonara
                         </h3>
-                        <div className="flex items-center gap-2">
-                            <div className="flex items-center justify-start">
-                                <Star fill="orange" size={14} strokeWidth={0} />
-                                <Star fill="orange" size={14} strokeWidth={0} />
-                                <Star fill="orange" size={14} strokeWidth={0} />
-                                <Star fill="orange" size={14} strokeWidth={0} />
-                                <Star fill="gray" size={14} strokeWidth={0} />
-                            </div>
-                            <p className="text-slate-500 text-xs font-medium">
-                                4.5
-                            </p>
-                        </div>
                         <div className="flex items-center gap-2">
                             <h4 className="text-green-500 font-medium">₱59.00</h4>
                             <p className="line-through text-xs text-slate-500">
@@ -219,7 +207,7 @@ export default function Checkout() {
                         </div>
                     </section>
                 </div>
-                <Trash2Icon size={20}/>
+                <p className="text-slate-500">x1</p>
                 </div>
 
                 {/* Total Section */}
@@ -236,6 +224,12 @@ export default function Checkout() {
                         <h3 className="text-sm py-2 text-slate-700 font-medium">Total</h3>
                         <p className="text-xl">₱120.00</p>
                     </div>
+                </div>
+
+                {/* Promo Code Section */}
+                <div className="flex items-center gap-2">
+                    <Input placeholder={"Enter promo code"}/>
+                    <Button variant={"default"} className="bg-black text-white">Apply</Button>
                 </div>
             </div>
         </div>

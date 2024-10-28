@@ -32,6 +32,12 @@ const nextConfig = {
             port: '',
             pathname: '/images/all_img/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'cdn.svgator.com',
+            port: '',
+            pathname: '/images/2024/04/**',
+          },
         ],
       },
 };
