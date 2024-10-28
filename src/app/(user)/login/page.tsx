@@ -51,12 +51,12 @@ export default function Login() {
                     <Button className="w-full flex items-center gap-2 justify-center" variant={"outline"}>
                         <Image
                         src={"https://freepnglogo.com/images/all_img/facebook-circle-logo-png.png"}
-                        alt="Google"
+                        alt="Facebook"
                         width={20}
                         height={20}
                         loading="lazy"
                         />
-                        Sign in with Google
+                        Sign in with Facebook
                     </Button>
                 </CardFooter>
             </Card>
