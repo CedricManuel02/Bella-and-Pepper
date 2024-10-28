@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <NavigationBar />
         <LinkContainer />
-        {children}
+          {children}
         <Footer />
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet" type="text/css" />
       </body>

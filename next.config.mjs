@@ -20,6 +20,18 @@ const nextConfig = {
             port: '',
             pathname: '/news/cms/202409/27/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'pngimg.com',
+            port: '',
+            pathname: '/d/**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'freepnglogo.com',
+            port: '',
+            pathname: '/images/all_img/**',
+          },
         ],
       },
 };

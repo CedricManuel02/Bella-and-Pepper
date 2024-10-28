@@ -33,9 +33,13 @@ export default function Home() {
        
       {/* Category Section */}
       <CategoryCarousel />
+      
+      {/* Product Section */}
+      <ProductContainer />
+     
       {/* About Section */}
-      <div id="about" className="py-10 flex flex-col justify-between md:flex-row">
-        <div className="md:w-6/12 w-full">
+      <div id="about" className="py-10 flex flex-col justify-between lg:flex-row">
+        <div className="lg:w-6/12 w-full">
           <h1 className="py-2 text-green-500 text-xl md:text-2xl lg:text-4xl font-bold">About Us</h1>
           <p className="text-slate-500 py-4 text-sm">
             Welcome to Bella & Pepper, your destination for authentic Korean food and beverages! 
@@ -64,20 +68,13 @@ export default function Home() {
           </div>
         </div>
         <Image
-          className="rounded-lg"
+          className="rounded-lg w-full lg:max-w-[500px]"
           src={"https://wimg.mk.co.kr/news/cms/202409/27/news-p.v1.20240927.cbbb1215a5854621a36d854fad9beeee_P1.png"}
           alt="image"
           height={500}
           width={500}
           loading="lazy"
         />
-      </div>
-      {/* Product Section */}
-      <ProductContainer />
-     
-      {/* Contact Section */}
-      <div className="">
-
       </div>
     </div>
   );

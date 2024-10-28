@@ -27,8 +27,6 @@ import Link from "next/link";
 import logo from "@/app/assets/logo.png";
 import CartSidebar from "@/app/components/shared/CartSidebar";
 import { Separator } from "@/components/ui/separator";
-import LoginModal from "@/app/components/shared/LoginModal";
-import RegisterModal from "./RegisterModal";
 
 export default function NavigationBar() {
   const router = useRouter();
@@ -53,11 +51,20 @@ export default function NavigationBar() {
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="border-slate-300 shadow-lg ml-5 block md:hidden">
-              <DropdownMenuItem className="text-slate-700" >Home</DropdownMenuItem>
-              <DropdownMenuItem className="text-slate-700" >Product</DropdownMenuItem>
-              <DropdownMenuItem className="text-slate-700" >About Us</DropdownMenuItem>
-              <DropdownMenuItem className="text-slate-700"  asChild>
-                <LoginModal/>
+              <DropdownMenuItem className="text-slate-700" >
+                <Link href={"/"}>Home</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-slate-700" >
+              <Link href={"/product"}>Product</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-slate-700" >
+              <Link href={"/#about"}>About Us</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-slate-700" >
+                <Link href={"/login"}>Login</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-slate-700" >
+                <Link href={"/register"}>Register</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -110,11 +117,9 @@ export default function NavigationBar() {
           {true ? (
             <div className="hidden md:block">
               <div className="flex items-center gap-2">
-                {/* Login Modal */}
-                <LoginModal />
+                <Link href={"/login"} className="text-slate-500 text-sm hover:text-green-500 hover:underline">Login</Link>
                 <Separator className="h-5" orientation={"vertical"} />
-                {/* Register Modal */}
-                <RegisterModal />
+                <Link href={"/register"} className="text-slate-500 text-sm hover:text-green-500 hover:underline">Register</Link>
               </div>
             </div>
           ) :
