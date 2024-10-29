@@ -10,7 +10,7 @@ export default function ForgotPassword() {
          <Card className="border-none shadow-none md:shadow-md w-full sm:max-w-[450px]">
                 <CardHeader>
                     <h3 className="text-slate-700 text-lg font-semibold">Forgot Password</h3>
-                    <p className="text-slate-500 text-sm">We will send you a link through email.</p>
+                    <p className="text-slate-500 text-sm">We will send you the link. Please check your email.</p>
                 </CardHeader>
                 <CardContent>
                     <div className="grid gap-4">
