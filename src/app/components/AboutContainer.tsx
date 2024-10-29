@@ -5,7 +5,7 @@ export default function AboutContainer() {
   return (
     <div id="about" className="py-10 flex flex-col justify-between lg:flex-row">
     <div className="lg:w-6/12 w-full">
-      <h1 className="py-2 text-green-500 text-xl md:text-2xl lg:text-4xl font-bold">About Us</h1>
+      <h1 className="py-2 text-green-500 text-xl md:text-2xl lg:text-4xl font-bold">About Us.</h1>
       <p className="text-slate-500 py-4 text-sm">
         Welcome to Bella & Pepper, your destination for authentic Korean food and beverages! 
         Our passion for Korean cuisine drives us to offer a carefully curated selection of 
