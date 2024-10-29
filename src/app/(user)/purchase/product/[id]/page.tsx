@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Truck } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -38,7 +37,6 @@ export default function Product() {
           </li>
         </ul>
       </div>
-
       <div className="py-10">
         <div className="flex items-start flex-col lg:flex-row gap-4">
           <div>
