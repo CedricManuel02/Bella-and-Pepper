@@ -5,9 +5,9 @@ import Link from "next/link";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
 export default function Footer() {
   return (
-    <div className="w-full bg-base-200" >
+    <div className="w-full bg-slate-200" >
       <div className="w-full xl:w-9/12 m-auto">
-        <footer className="footer text-base-content p-10">
+        <footer className="footer p-10 text-slate-700">
           <nav>
             <h6 className="footer-title">Navigation</h6>
             <Link href={"/"} className="link link-hover">
@@ -31,7 +31,7 @@ export default function Footer() {
             </Link>
           </nav>
         </footer>
-        <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+        <footer className="footer bg-slate-200 text-base-content border-t px-10 py-4">
           <aside className="grid-flow-col items-center">
             <Image
               src={logo}
