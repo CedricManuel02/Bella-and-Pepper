@@ -6,7 +6,7 @@ import React from 'react'
 
 export default function ForgotPassword() {
     return (
-        <div className="w-11/12 xl:w-9/12 h-screen m-auto py-10 flex items-center justify-center">
+        <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10 flex items-center justify-center">
          <Card className="border-none shadow-none md:shadow-md w-full sm:max-w-[450px]">
                 <CardHeader>
                     <h3 className="text-slate-700 text-lg font-semibold">Forgot Password</h3>
