@@ -7,11 +7,11 @@ export default function Product() {
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10 ">
       <div className="py-10">
         <h2 className=" text-slate-700 font-semibold text-md lg:text-xl">
-          Order ID <span className="text-slate-500">103KSAD93141324</span>
+          Order ID <span className="text-slate-500">12J9JXOAS023</span>
         </h2>
         <div className="flex items-center gap-2 text-green-500 font-semibold text-xs">
           <Truck size={20} />
-          <p>Estimated date of delivery October 14, 2024</p>
+          <p>Estimated delivery: October 14, 2024</p>
         </div>
       </div>
       {/* Step */}
@@ -73,7 +73,7 @@ export default function Product() {
                   height={100}
                   loading="lazy"
                 />
-                <figcaption>
+                <div>
                   <h2 className="text-slate-700 text-sm font-medium">
                     Samyang Cheese Buldak
                   </h2>
@@ -81,7 +81,7 @@ export default function Product() {
                     <li>x1</li>
                     <li>400kg</li>
                   </ul>
-                </figcaption>
+                </div>
               </div>
               <div className="w-full flex items-center justify-end">
                 <h3 className="text-slate-500">₱85.00</h3>

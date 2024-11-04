@@ -43,7 +43,7 @@ export default function ProductContainer() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <h4 className="text-green-500 font-medium">₱59.00</h4>
+                  <h4 className="text-slate-700 font-medium">₱59.00</h4>
                   <p className="line-through text-xs sm:text-sm text-slate-500">
                     ₱78.00
                   </p>

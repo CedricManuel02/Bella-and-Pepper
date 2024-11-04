@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 const formsCheckoutSchema = z.object({
     firstname: z.string().min(1, { message: "First name is required" }),
@@ -198,8 +199,9 @@ export default function Checkout() {
                         <h3 className="text-slate-700 text-xs md:text-sm font-medium">
                             Samyang Buldak Carbonara
                         </h3>
+                        <Badge variant={"outline"} className="text-slate-500 font-medium text-xs">500g Package</Badge>
                         <div className="flex items-center gap-2">
-                            <h4 className="text-green-500 font-medium">₱59.00</h4>
+                            <h4 className="text-slate-500 font-medium">₱59.00</h4>
                             <p className="line-through text-xs text-slate-500">
                                 ₱78.00
                             </p>
@@ -223,12 +225,6 @@ export default function Checkout() {
                         <h3 className="text-sm py-2 text-slate-700 font-medium">Total</h3>
                         <p className="text-xl">₱120.00</p>
                     </div>
-                </div>
-
-                {/* Promo Code Section */}
-                <div className="flex items-center gap-2">
-                    <Input placeholder={"Enter promo code"}/>
-                    <Button variant={"default"} className="bg-black text-white">Apply</Button>
                 </div>
             </div>
         </div>

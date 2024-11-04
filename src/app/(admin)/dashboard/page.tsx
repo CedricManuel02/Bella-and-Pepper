@@ -1,42 +1,24 @@
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Card } from '@/components/ui/card'
 import React from 'react'
 
 export default function Dashboard() {
   return (
-    <div className="h-screen w-full">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant={"default"}>Create Product</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[485px]">
-          <DialogHeader>
-            <DialogTitle>Create Product</DialogTitle>
-            <DialogDescription>
-              Add product that will be featured
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="barcode" className="text-slate-700">Barcode</Label>
-            <Input type="text" id="barcode" />
-          </div>
-          <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="product_name" className="text-slate-700">Product</Label>
-              <Input type="text" id="product_name" />
-            </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="price" className="text-slate-700">Price</Label>
-              <Input type="number" id="price" />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button className="w-full bg-green-500" type="submit">Add Product</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10">
+      <div className="w-full flex flex-col gap-2 py-4">
+        <h2 className="text-slate-700 font-semibold text-md lg:text-xl">Dashboard</h2>
+        <p className="text-slate-500 text-xs lg:text-sm">Hello Welcome Admin!</p>
+      </div>
+      {/*Card */}
+      <div className="grid grid-cols-4 gap-2">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Card key={index} className="rounded-md h-auto p-4 cursor-pointer relative shadow-sm border-slate-300">
+            <h4 className="text-slate-500 text-sm font-medium">Total Revenue</h4>
+            <h2 className="text-slate-700 text-lg font-semibold">$15,231.89</h2>
+          </Card>
+        ))}
+
+      </div>
+     
     </div>
   )
 }

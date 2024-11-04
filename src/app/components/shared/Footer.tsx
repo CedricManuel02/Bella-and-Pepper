@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
 export default function Footer() {
   return (
-    <div className="w-full bg-slate-200" >
+    <div className="w-full bg-slate-100" >
       <div className="w-full xl:w-9/12 m-auto">
         <footer className="footer p-10 text-slate-700">
           <nav>
@@ -31,7 +31,7 @@ export default function Footer() {
             </Link>
           </nav>
         </footer>
-        <footer className="footer bg-slate-200 text-base-content border-t px-10 py-4">
+        <footer className="footer text-base-content border-t px-10 py-4">
           <aside className="grid-flow-col items-center">
             <Image
               src={logo}
@@ -40,7 +40,7 @@ export default function Footer() {
               height={50}
               loading="lazy"
             />
-            <p className="font-medium">
+            <p className="font-medium text-slate-700">
               Bella and <span className="text-green-500">Pepper’s</span>
               <br />
               <span className="text-slate-500">Providing quality korean food and beverages</span>

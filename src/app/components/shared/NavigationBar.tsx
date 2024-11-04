@@ -114,7 +114,7 @@ export default function NavigationBar() {
           ) : null}
 
           {/*This is the drop down menu */}
-          {true ? (
+          {false ? (
             <div className="hidden md:block">
               <div className="flex items-center gap-2">
                 <Link href={"/login"} className="text-slate-500 text-sm hover:text-green-500 hover:underline">Login</Link>
