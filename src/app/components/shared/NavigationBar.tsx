@@ -123,7 +123,7 @@ export default function NavigationBar() {
               </div>
             </div>
           ) :
-            <React.Fragment>
+            <div className="flex items-center gap-4">
               <Bell
                 size={21}
                 className="text-slate-500 cursor-pointer hover:text-slate-700 "
@@ -164,7 +164,7 @@ export default function NavigationBar() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </React.Fragment>}
+            </div>}
         </div>
       </nav>
       {/* Search toggle section */}

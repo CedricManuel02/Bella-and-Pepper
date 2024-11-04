@@ -11,7 +11,8 @@ export default function LinkContainer() {
           <React.Fragment>
             <Link href="/dashboard" className={pathname === "/dashboard" ? "text-green-500 underline font-medium" : "text-slate-500 font-normal"}>Dashboard</Link>
             <Link href="/product" className={pathname === "/product" ? "text-green-500 underline font-medium" : "text-slate-500 font-normal"}>Product</Link>
-            <Link href="/#about" className="text-slate-500 font-normal">Categories</Link>
+            <Link href="/orders" className={pathname === "/orders" ? "text-green-500 underline font-medium" : "text-slate-500 font-normal"}>Orders</Link>
+            <Link href="/categories" className="text-slate-500 font-normal">Categories</Link>
           </React.Fragment>
         ) :
           (
