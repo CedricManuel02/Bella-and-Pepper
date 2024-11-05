@@ -32,7 +32,6 @@
     "react-barcode": "^1.5.3",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.1",
-    "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
@@ -48,6 +47,6 @@
     "typescript": "^5"
   },
   "overrides": {
-  "react-is": "^19.0.0-rc-69d4b800-20241021"
-}
+    "react-is": "^19.0.0-rc-69d4b800-20241021"
+  }
 }

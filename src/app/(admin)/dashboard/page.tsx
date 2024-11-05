@@ -1,16 +1,6 @@
 "use client";
 import { Card } from "@/components/ui/card";
 import React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-
 import {
   TableCaption,
   TableHeader,
@@ -20,32 +10,9 @@ import {
   TableCell,
   Table,
 } from "@/components/ui/table";
-import Image from "next/image";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80, laptop: 200 },
-  { month: "February", desktop: 305, mobile: 200, laptop: 220 },
-  { month: "March", desktop: 237, mobile: 120, laptop: 240 },
-  { month: "April", desktop: 73, mobile: 190, laptop: 520 },
-  { month: "May", desktop: 209, mobile: 130, laptop: 250 },
-  { month: "June", desktop: 214, mobile: 140, laptop: 20 },
-];
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
-  },
-  laptop: {
-    label: "Laptop",
-    color: "#f5712a",
-  },
-} satisfies ChartConfig;
 
 export default function Dashboard() {
   return (
@@ -74,26 +41,8 @@ export default function Dashboard() {
         ))}
       </div>
       <div className="flex items-center justify-between gap-2">
-        <ChartContainer
-          config={chartConfig}
-          className="w-[750px] rounded-md h-auto p-4 cursor-pointer relative shadow-sm border-slate-300"
-        >
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-            <Bar dataKey="laptop" fill="var(--color-laptop)" radius={4} />
-          </BarChart>
-        </ChartContainer>
+      
+        {/* Order Table */}
         <div>
           <Table className="whitespace-nowrap">
             <TableCaption>All orders display here</TableCaption>

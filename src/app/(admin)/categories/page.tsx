@@ -21,19 +21,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Barcode from "react-barcode";
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { Download, X } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -43,9 +34,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-export default function Product() {
+export default function Categories() {
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10">
       <div className="py-4">
