@@ -43,9 +43,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 export default function Product() {
+  const router = useRouter();
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10">
       <div className="py-4">
@@ -59,128 +59,15 @@ export default function Product() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            {/* Dialog Create Product*/}
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant={"default"}
-                  className="bg-green-500 hover:bg-green-600"
-                >
-                  Create
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="rounded-md sm:max-w-[485px]">
-                <DialogHeader>
-                  <DialogTitle>Create Product</DialogTitle>
-                  <DialogDescription>
-                    Add product that will be featured
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid w-full items-center gap-1.5">
-                  <Label htmlFor="barcode" className="text-slate-700">
-                    Barcode
-                  </Label>
-                  <Input type="text" id="barcode" placeholder="Product UPC" />
-                </div>
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_name" className="text-slate-700">
-                      Product
-                    </Label>
-                    <Input
-                      type="text"
-                      id="product_name"
-                      placeholder="Ex. Samyang Buldak"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_price" className="text-slate-700">
-                      Price
-                    </Label>
-                    <Input
-                      type="number"
-                      placeholder="Ex. ₱50.00"
-                      id="product_price"
-                    />
-                  </div>
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="price" className="text-slate-700">
-                      Category
-                    </Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Drinks">Drinks</SelectItem>
-                        <SelectItem value="Noodles">Noodles</SelectItem>
-                        <SelectItem value="Condiments">Condiments</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_price" className="text-slate-700">
-                      Image
-                    </Label>
-                    <Input type="file" id="product_image" />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_price" className="text-slate-700">
-                      Description
-                    </Label>
-                    <Textarea placeholder="Type the product description here." />
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-2 justify-between md:flex-row">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_price" className="text-slate-700">
-                      Pieces to Avail
-                    </Label>
-                    <Input
-                      type="text"
-                      placeholder="Ex. 500g Pack 12 pcs"
-                      id="product_price"
-                    />
-                  </div>
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="product_price" className="text-slate-700">
-                      Available Stock
-                    </Label>
-                    <Input
-                      type="number"
-                      placeholder="Ex. 32"
-                      id="product_price"
-                    />
-                  </div>
-                  <Button className="w-full md:w-auto" variant={"secondary"}>
-                    Add
-                  </Button>
-                </div>
-                <div>
-                  <Badge variant={"secondary"}>
-                    <div className="flex items-center gap-2 justify-center text-slate-700">
-                      500g Pack 12 pcs{" "}
-                      <span className="text-slate-500">32 Stocks</span>{" "}
-                      <X size={14} />
-                    </div>
-                  </Badge>
-                </div>
-                <DialogFooter>
-                  <Button
-                    className="w-full bg-green-500 hover:bg-green-600"
-                    type="submit"
-                  >
-                    Add Product
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            {/* Create Product*/}
+            <Button
+              onClick={() => router.push("/product/create")}
+              variant={"default"}
+              className="bg-green-500 hover:bg-green-600"
+            >
+              Create
+            </Button>
+
             {/* Dialog Export */}
             <Dialog>
               <DialogTrigger asChild>

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/app/components/shared/Header";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductCardContainer from "@/app/components/shared/ProductCardContainer";
+import Link from "next/link";
 
 export default function ProductContainer() {
   return (
@@ -12,7 +13,8 @@ export default function ProductContainer() {
       <Header text={"Products"} url={"/"} />
       <ProductCardContainer>
         {Array.from({ length: 15 }).map((_, index) => (
-          <Card key={index} className="h-auto cursor-pointer relative shadow-sm border-slate-300">
+         <Link key={index} href={`/item/${index}`}>
+           <Card className="h-auto cursor-pointer relative shadow-sm border-slate-300">
             <CardContent className="flex flex-col gap-5 h-auto items-center justify-center p-4">
               <Badge variant={"default"} className="bg-green-400 hover:bg-green-400 text-white rounded-full absolute top-2 left-2">
                 Sale
@@ -51,6 +53,7 @@ export default function ProductContainer() {
               </section>
             </CardContent>
           </Card>
+         </Link>
         ))}
       </ProductCardContainer>
     </div>

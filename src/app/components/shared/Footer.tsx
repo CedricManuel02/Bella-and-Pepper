@@ -7,30 +7,6 @@ export default function Footer() {
   return (
     <div className="w-full bg-slate-100" >
       <div className="w-full xl:w-9/12 m-auto">
-        <footer className="footer p-10 text-slate-700">
-          <nav>
-            <h6 className="footer-title">Navigation</h6>
-            <Link href={"/"} className="link link-hover">
-              Home
-            </Link>
-            <Link href={"/product"} className="link link-hover">
-              Product
-            </Link>
-            <Link href={"#about"} className="link link-hover">
-              About Us
-            </Link>
-          </nav>
-        
-          <nav>
-            <h6 className="footer-title">Legal</h6>
-            <Link href={"#"} className="link link-hover">
-              Terms of use
-            </Link>
-            <Link href={"#"} className="link link-hover">
-              Privacy policy
-            </Link>
-          </nav>
-        </footer>
         <footer className="footer text-base-content border-t px-10 py-4">
           <aside className="grid-flow-col items-center">
             <Image

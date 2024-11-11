@@ -1,3 +1,4 @@
+import StarRating from "@/app/components/shared/StarRating";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -7,11 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 export default function Product() {
+
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-5">
@@ -79,13 +80,7 @@ export default function Product() {
                   Samyang Buldak Carbonara
                 </h3>
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center justify-start">
-                    <Star fill="orange" size={14} strokeWidth={0} />
-                    <Star fill="orange" size={14} strokeWidth={0} />
-                    <Star fill="orange" size={14} strokeWidth={0} />
-                    <Star fill="orange" size={14} strokeWidth={0} />
-                    <Star fill="gray" size={14} strokeWidth={0} />
-                  </div>
+                  <StarRating rating={3}/>
                   <p className="text-slate-500 text-xs sm:text-sm font-medium">
                     4.5
                   </p>
