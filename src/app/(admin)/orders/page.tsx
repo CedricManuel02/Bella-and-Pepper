@@ -21,10 +21,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Barcode from "react-barcode";
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { Download, X } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -34,56 +43,65 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-export default function Categories() {
+import { useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
+export default function Orders() {
+  const router = useRouter();
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10">
       <div className="py-4">
         <div className="flex justify-between flex-col items-start gap-2 lg:items-center lg:flex-row">
           <div className="space-y-1">
             <h2 className="text-slate-700 font-semibold text-md lg:text-xl">
-              Categories
+              Orders
             </h2>
             <p className="text-slate-500 text-xs lg:text-sm">
-              Manage the shop categories.
+              Manage the shop orders.
             </p>
           </div>
           <div className="flex items-center gap-2">
-            {/* Dialog Create Product*/}
+            {/* Dialog Export */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  variant={"default"}
-                  className="bg-green-500 hover:bg-green-600"
+                  className="flex items-center gap-2 justify-center text-slate-500"
+                  variant={"outline"}
                 >
-                  Create
+                  <Download size={20} />
+                  Export
                 </Button>
               </DialogTrigger>
-              <DialogContent className="rounded-md sm:max-w-[485px]">
+              <DialogContent className="sm:max-w-[485px]">
                 <DialogHeader>
-                  <DialogTitle>Create Category</DialogTitle>
+                  <DialogTitle>Export Files</DialogTitle>
                   <DialogDescription>
-                    Add categories for your products
+                    Generate a file reports (e.g PDF, Excel)
                   </DialogDescription>
                 </DialogHeader>
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
+                <div className="flex items-center gap-2">
                   <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="categories_name" className="text-slate-700">
-                      Category
+                    <Label htmlFor="file_name" className="text-slate-700">
+                      File name
                     </Label>
                     <Input
                       type="text"
-                      id="categories_name"
-                      placeholder="Ex. Noodles"
+                      id="file_name"
+                      placeholder="Default (Date generated)"
                     />
                   </div>
-                </div>
-               
-                <div className="flex flex-col items-center gap-2 justify-between md:flex-row">
                   <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="categories_image" className="text-slate-700">
-                      Image
+                    <Label htmlFor="file_name" className="text-slate-700">
+                      File type
                     </Label>
-                    <Input type="file" id="categories_image" />
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="File type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Excel">Excel</SelectItem>
+                        <SelectItem value="PDF">PDF</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <DialogFooter>
@@ -91,7 +109,7 @@ export default function Categories() {
                     className="w-full bg-green-500 hover:bg-green-600"
                     type="submit"
                   >
-                    Add 
+                    Generate
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -99,15 +117,26 @@ export default function Categories() {
           </div>
         </div>
         <Separator className="my-4" />
-          <div className="flex h-5 items-center space-x-4 text-sm">
-            <Link className="text-slate-500 text-sm" href={"/product"}>
-              Categories
-            </Link>
-            <Separator orientation="vertical" />
-            <Link className="text-slate-500 text-sm" href={"/"}>
-              Archive
-            </Link>
+        <div className="flex justify-end flex-col items-start gap-2 md:flex-row">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Sort */}
+            <Input
+              className="w-full md:w-64"
+              type="text"
+              placeholder="Search..."
+            />
+            <Select>
+              <SelectTrigger className="w-full md:w-[150px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Name</SelectItem>
+                <SelectItem value="dark">Price</SelectItem>
+                <SelectItem value="system">Date Added</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+        </div>
       </div>
       <Table className="whitespace-nowrap">
         <TableCaption>
@@ -138,37 +167,40 @@ export default function Categories() {
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead></TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Date Created</TableHead>
+            <TableHead>Order ID</TableHead>
+            <TableHead>Customer</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Date of Purchase</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {Array.from({ length: 5 }).map((_, index) => (
             <TableRow key={index} className="text-slate-500">
-              <TableCell>
-                <Checkbox />
-              </TableCell>
+              <TableCell>KJIOI132KZX</TableCell>
               <TableCell className="font-medium flex items-center gap-2 whitespace-break-spaces">
                 <Image
                   src={
-                    "https://morueats.com/cdn/shop/products/SamyangBuldakCheeseHotChickenFlavourRamen.png?v=1677898969"
+                    "https://marketplace.canva.com/EAFqNrAJpQs/1/0/1600w/canva-neutral-pink-modern-circle-shape-linkedin-profile-picture-WAhofEY5L1U.jpg"
                   }
-                  alt="Product Image"
-                  width={60}
+                  className="rounded-full"
+                  alt="Profile"
+                  width={30}
                   height={100}
                   loading="lazy"
                 />
-                <h3>Noodles</h3>
+                <h3>Cedric Manuel</h3>
               </TableCell>
-              <TableCell>September 24, 2024</TableCell>
+              <TableCell>₱86.00</TableCell>
               <TableCell>
-                <div className="flex items-center gap-2 justify-end">
-                  <Link href="#">Edit</Link>
-                  <Separator className="h-5" orientation="vertical" />
-                  <Link href="#">Delete</Link>
-                </div>
+                <Badge variant={"outline"} className="border border-green-500 text-green-500 font-medium">Paid</Badge>
+              </TableCell>
+              <TableCell>March 9, 1952 12:23 PM</TableCell>
+              <TableCell className="flex items-center justify-end space-x-2">
+                  <Link className="hover:underline" href="#">View</Link>
+                  <Separator orientation={"vertical"} className="h-4"/>
+                  <Link className="hover:underline" href="#">Print</Link>
               </TableCell>
             </TableRow>
           ))}

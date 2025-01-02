@@ -10,8 +10,12 @@ import {
   TableCell,
   Table,
 } from "@/components/ui/table";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import BarChart from "@/app/components/shared/BarChart";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import PieChart from "@/app/components/shared/PieChart";
+import { DollarSign } from "lucide-react";
 
 
 export default function Dashboard() {
@@ -32,50 +36,72 @@ export default function Dashboard() {
             key={index}
             className="rounded-md h-auto p-4 cursor-pointer relative shadow-sm border-slate-300"
           >
-            <h4 className="text-slate-700 text-md font-medium">
+          <div className="flex space-x-2">
+            <DollarSign size={14} className="bg-green-200 text-green-500 h-8 w-8 p-2 rounded-full"/>
+          <div>
+          <h4 className="text-slate-700 text-sm font-medium">
               Total Revenue
             </h4>
             <p className="text-slate-400 text-xs">+20.1% from last month</p>
             <h2 className="text-slate-700 text-lg font-semibold">$15,231.89</h2>
+          </div>
+          </div>
           </Card>
         ))}
       </div>
-      <div className="flex items-center justify-between gap-2">
-      
+      <div className="flex flex-grow justify-between space-x-2 py-4">
+        <div className="w-full">
+          <BarChart />
+        </div>
+        <div className="w-10/12">
+          <PieChart />
+        </div>
+      </div>
+      <div>
         {/* Order Table */}
-        <div>
-          <Table className="whitespace-nowrap">
-            <TableCaption>All orders display here</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Customer</TableHead>
-                <TableHead>Product</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <TableRow key={index} className="text-slate-500">
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      {" "}
-                      <Avatar className="w-8 h-8 cursor-pointer hover:opacity-90">
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <h3>John Doe</h3>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-medium whitespace-break-spaces">
-                    Samyang Buldak Chesse
-                  </TableCell>
-                  <TableCell>₱86.00</TableCell>
-                  <TableCell className="text-green-500">Success</TableCell>
+        <div className="w-full">
+          <Card
+            className="rounded-md h-auto p-4 cursor-pointer relative shadow-sm border-slate-300"
+          >
+            <Table className="whitespace-nowrap">
+              <TableCaption>All orders display here</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Order ID</TableHead>
+                  <TableHead>Customer</TableHead>
+                  <TableHead>Total</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Action</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index} className="text-slate-500">
+                    <TableCell>
+                      KHI231NF01XU23
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {" "}
+                        <Avatar className="w-8 h-8 cursor-pointer hover:opacity-90">
+                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <h3>John Doe</h3>
+                      </div>
+                    </TableCell>
+                    <TableCell>₱86.00</TableCell>
+                    <TableCell>
+                      <Badge variant={"outline"} className="border border-green-500 text-green-500">Paid</Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Button variant={"outline"}>View Order</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Card>
         </div>
       </div>
     </div>

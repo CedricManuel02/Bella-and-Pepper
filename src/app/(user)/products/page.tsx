@@ -1,101 +1,151 @@
-import StarRating from "@/app/components/shared/StarRating";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Image from "next/image";
-import React from "react";
+import ProductCardContainer from "@/app/components/shared/ProductCardContainer";
+import ProductCard from "@/app/components/shared/ProductCard";
+import { CategoriesInterface, ProductInterface } from "../../../../typings";
+import { LoaderCircle } from "lucide-react";
 
 export default function Product() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [product, setProduct] = useState<ProductInterface[]>([]);
+  const [filteredProduct, setFilteredProduct] = useState<ProductInterface[]>([]);
+  const [categories, setCategories] = useState<CategoriesInterface[]>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const [productRes, categoryRes] = await Promise.all([
+          fetch("http://localhost:3001/api/v1/get-products"),
+          fetch("http://localhost:3001/api/v1/get-categories"),
+        ]);
+
+        const productData = await productRes.json();
+        const categoryData = await categoryRes.json();
+
+        setProduct(productData.data);
+        setFilteredProduct(productData.data);
+        setCategories(categoryData.data);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // Apply filters and sorting whenever selections change
+  useEffect(() => {
+    let updatedProducts = [...product];
+
+    // Apply category filter
+    if (selectedCategory !== "All" && selectedCategory) {
+      updatedProducts = updatedProducts.filter(
+        (p) => p.tbl_categories.category_name.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    } else if(selectedCategory === "All"){
+      updatedProducts = [...product];
+    }
+
+    // Apply sorting
+    if (selectedSort === "Name") {
+      updatedProducts.sort((a, b) => a.product_name.localeCompare(b.product_name));
+    } else if (selectedSort === "Price") {
+      updatedProducts.sort(
+        (a, b) =>
+          (a.tbl_variants[0]?.variant_price || 0) - (b.tbl_variants[0]?.variant_price || 0)
+      );
+    } else if (selectedSort === "Flash-Sale") {
+      updatedProducts = updatedProducts.filter((product) =>
+        product.tbl_variants.some(
+          (variant) => variant.variant_discount && variant.variant_discount > 0
+        )
+      );
+
+      updatedProducts.sort((a, b) => {
+        const maxDiscountA = Math.max(
+          ...a.tbl_variants.map((variant) => variant.variant_discount || 0)
+        );
+        const maxDiscountB = Math.max(
+          ...b.tbl_variants.map((variant) => variant.variant_discount || 0)
+        );
+        return maxDiscountB - maxDiscountA;
+      });
+    }
+
+    setFilteredProduct(updatedProducts);
+  }, [selectedCategory, selectedSort, product]);
 
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-5">
-        <h1 className="text-slate-700 font-semibold text-md lg:text-xl">Browse our products</h1>
-        {/* Select Section */}
+        <h1 className="text-slate-700 font-semibold text-md lg:text-xl">
+          Browse our products
+        </h1>
         <div className="flex items-center gap-2">
-          <Select>
+          <Select onValueChange={(value) => setSelectedCategory(value)}>
             <SelectTrigger className="w-full lg:w-44">
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent className="border-none shadow-md">
-              <SelectItem className="cursor-pointer" value="Noodles">
-                Noodles
-              </SelectItem>
-              <SelectItem className="cursor-pointer" value="Drinks">
-                Drinks
-              </SelectItem>
-              <SelectItem className="cursor-pointer" value="Snacks">
-                Snacks
-              </SelectItem>
+              <SelectGroup>
+                <SelectLabel>Category</SelectLabel>
+                <SelectItem
+                  value={"All"}
+                >All</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem
+                    value={category.category_name}
+                    key={category.category_id}
+                  >
+                    {category.category_name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
-          <Select>
+          <Select onValueChange={(value) => setSelectedSort(value)}>
             <SelectTrigger className="w-full lg:w-44">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent className="border-none shadow-md">
-              <SelectItem className="cursor-pointer" value="Name">
-                Name
-              </SelectItem>
-              <SelectItem className="cursor-pointer" value="Price">
-                Price
-              </SelectItem>
-              <SelectItem className="cursor-pointer" value="Best-Selling">
-                Best Selling
-              </SelectItem>
+              <SelectItem value="Name">Name</SelectItem>
+              <SelectItem value="Price">Price</SelectItem>
+              <SelectItem value="Flash-Sale">Flash Sale</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-        {Array.from({ length: 15 }).map((_, index) => (
-          <Card
-            key={index}
-            className="h-auto cursor-pointer relative shadow-sm border-slate-300"
-          >
-            <CardContent className="flex flex-col gap-5 h-auto items-center justify-center p-4">
-              <Badge
-                variant={"default"}
-                className="bg-green-400 hover:bg-green-400 text-white rounded-full absolute top-2 left-2"
-              >
-                Sale
-              </Badge>
-              <Image
-                src={
-                  "https://morueats.com/cdn/shop/products/SamyangBuldakCheeseHotChickenFlavourRamen.png?v=1677898969"
-                }
-                alt="image"
-                width={160}
-                height={100}
-                loading="lazy"
-              />
-              <section className="w-full">
-                <h3 className="text-slate-700 text-xs sm:text-sm font-medium">
-                  Samyang Buldak Carbonara
-                </h3>
-                <div className="flex items-center gap-2">
-                  <StarRating rating={3}/>
-                  <p className="text-slate-500 text-xs sm:text-sm font-medium">
-                    4.5
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <h4 className="text-green-500 font-medium">₱59.00</h4>
-                  <p className="line-through text-xs sm:text-sm text-slate-500">
-                    ₱78.00
-                  </p>
-                </div>
-              </section>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center space-x-2 text-sm text-slate-400">
+          <LoaderCircle className="animate-spin" size={14} />
+          <p>Loading...</p>
+        </div>
+      ) : filteredProduct.length === 0 ? (
+        <p className="text-center text-slate-500">
+          No products found. Try a different filter.
+        </p>
+      ) : (
+        <ProductCardContainer>
+          {filteredProduct.map((product: ProductInterface) => (
+            <ProductCard key={product.product_id} {...product} />
+          ))}
+        </ProductCardContainer>
+      )}
     </div>
   );
 }

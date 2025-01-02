@@ -1,14 +1,17 @@
-import { Button } from "@/components/ui/button";
+"use client"
+import React from "react"
 import Image from "next/image";
-import React from "react";
+import { Button } from "@/components/ui/button";
+import ProfileSidebar from "@/app/components/shared/ProfileSidebar"
 
 export default function Purchase() {
+
   return (
-    <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10 ">
-      <h2 className="py-10 text-slate-700 font-semibold text-md lg:text-xl">
-        Purchase Products
-      </h2>
-      <div>
+    <div className="w-11/12 xl:w-9/12 flex justify-center min-h-screen h-auto m-auto py-10">
+      <ProfileSidebar />
+      {/* Profile Form Section */}
+      <div className="px-8 w-8/12">
+        <h2 className="py-4 text-slate-700 font-semibold text-md">Purchase Products</h2>
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
@@ -31,16 +34,16 @@ export default function Purchase() {
                 <ul className="flex items-center text-sm gap-2 text-slate-500">
                   <li>x1</li>
                   <li>400kg</li>
-                  <li className="font-semibold">Pending</li>
                 </ul>
               </figcaption>
             </div>
             <div className="flex items-center justify-end">
-                <Button variant={"default"}>Track Order</Button>
+              <Button variant={"outline"}>Track Order</Button>
             </div>
           </div>
         ))}
       </div>
     </div>
-  );
+  )
 }
+

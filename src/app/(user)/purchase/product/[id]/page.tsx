@@ -1,4 +1,5 @@
-import { Truck } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Check, Truck } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -15,30 +16,37 @@ export default function Product() {
         </div>
       </div>
       {/* Step */}
-      <div className="overflow-x-scroll">
-        <ul className="steps sm:steps-vertical lg:steps-horizontal w-full text-xs">
-          <li className="step step-primary">
-            <div className="text-slate-700 px-4">
+        <ul className="flex justify-between items-center w-full text-xs">
+          <li className="flex items-center flex-col">
+            <div className="bg-green-500 flex items-center justify-center w-8 h-8 rounded-full text-white">
+                <Check size={20}/>
+            </div>
+            <div className="text-slate-700 px-4 text-center py-5">
               <h3>Order Confimed</h3>
               <p className="text-slate-500">8:00 PM, Feb 3, 2024</p>
             </div>
           </li>
-          <li className="step step-primary">
-          <div className="text-slate-700 px-4">
+          <li className="flex items-center flex-col">
+            <div className="bg-green-500 flex items-center justify-center w-8 h-8 rounded-full text-white">
+                <Check size={20}/>
+            </div>
+            <div className="text-slate-700 px-4 text-center py-5">
               <h3>Order Confimed</h3>
               <p className="text-slate-500">8:00 PM, Feb 3, 2024</p>
             </div>
           </li>
-          <li className="step">
-          <div className="text-slate-700 px-4">
+          <li className="flex items-center flex-col">
+            <div className="bg-green-500 flex items-center justify-center w-8 h-8 rounded-full text-white">
+                <Check size={20}/>
+            </div>
+            <div className="text-slate-700 px-4 text-center py-5">
               <h3>Order Confimed</h3>
               <p className="text-slate-500">8:00 PM, Feb 3, 2024</p>
             </div>
           </li>
         </ul>
-      </div>
       <div className="py-10">
-        <div className="flex items-start flex-col lg:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <div>
             <h3 className="font-semibold text-md text-slate-700 py-2">
               Delivery Information
@@ -49,11 +57,11 @@ export default function Product() {
               1453 Glendale Dr Fairborn, Ohio(OH), 45324
             </p>
           </div>
-          <div className="py-4">
+          <div>
             <h3 className="font-semibold text-md text-slate-700 py-2">
               Payment
             </h3>
-            <p className="text-slate-500">Gcash</p>
+            <Badge variant={"outline"}>Gcash</Badge>
           </div>
         </div>
         <div className="py-4">

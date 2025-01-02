@@ -1,235 +1,192 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Barcode from "react-barcode";
-import Image from "next/image";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import { Download, X } from "lucide-react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+"use client"
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import ProductTable from "./components/ProductTable";
+import { Separator } from "@/components/ui/separator";
+import ProductExportDialog from "./components/ProductExportDialog";
+import { removeProducts, removeSelectedItems, searchProducts, sortByCategory, sortProducts } from "@/redux/features/product-slice";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertDialogHeader, AlertDialogFooter } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+import { toast } from "@/hooks/use-toast";
+import { CategoriesInterface, ProductArrayInterface, ProductSelected } from "../../../../typings";
+import { deleteProducts } from "../../../../actions/productServerAction";
+import { EllipsisVertical, Loader, Trash } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { getCategoryList } from "../../../../actions/serverAction";
+
+
 export default function Product() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const selected = useSelector((state: { product: ProductArrayInterface }) => state.product.selected_items);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [category, setCategory] = useState<CategoriesInterface[]>([]);
+  function handleSortChange(value: string) {
+    try {
+      const sort_array = ["All", "Name", "Price", "Date Added"];
+      if (sort_array.includes(value)) {
+        dispatch(sortProducts({ sort_by: value }));
+      }
+    } catch (error) {
+      console.error("Error sorting products:", error);
+    }
+  }
+  function handleSortByCategory(value: string) {
+    try {
+      if (value !== "") {
+        if (value === "All") {
+          dispatch(sortProducts({ sort_by: "All" }));
+        } else {
+          dispatch(sortByCategory({ category_id: value }));
+        }
+      }
+    } catch (error) {
+      console.error("Error sorting products by category:", error);
+    }
+  }
+  function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
+    try {
+      const search = e.currentTarget.value;
+      dispatch(searchProducts({ search: search }));
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  }
+  function handleDelete() {
+    try {
+      setLoading(true);
+      if (selected.length === 0) {
+        toast({
+          variant: "default",
+          title: "Opps!",
+          description: "Please select a product to delete."
+        });
+        return;
+      }
+
+      selected.forEach(async (item: ProductSelected) => {
+        const response = await deleteProducts(item.product_id);
+        if (response.status === 200) {
+          dispatch(removeSelectedItems({ product_id: item.product_id }));
+          dispatch(removeProducts({ product_id: item.product_id }));
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting products:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
+
+  }
+
+  const getCategory = async () => {
+    try {
+      const response = await getCategoryList();
+      setCategory(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  }
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   return (
     <div className="w-11/12 xl:w-9/12 min-h-screen h-auto m-auto py-10">
-      <div className="py-4">
-        <div className="flex justify-between flex-col items-start gap-2 lg:items-center lg:flex-row">
-          <div className="space-y-1">
-            <h2 className="text-slate-700 font-semibold text-md lg:text-xl">
-              Product
-            </h2>
-            <p className="text-slate-500 text-xs lg:text-sm">
-              Manage the shop products.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            {/* Create Product*/}
-            <Button
-              onClick={() => router.push("/product/create")}
-              variant={"default"}
-              className="bg-green-500 hover:bg-green-600"
-            >
-              Create
-            </Button>
-
-            {/* Dialog Export */}
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  className="flex items-center gap-2 justify-center text-slate-500"
-                  variant={"outline"}
-                >
-                  <Download size={20} />
-                  Export
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[485px]">
-                <DialogHeader>
-                  <DialogTitle>Export Files</DialogTitle>
-                  <DialogDescription>
-                    Generate a file reports (e.g PDF, Excel)
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="flex items-center gap-2">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="file_name" className="text-slate-700">
-                      File name
-                    </Label>
-                    <Input
-                      type="text"
-                      id="file_name"
-                      placeholder="Default (Date generated)"
-                    />
-                  </div>
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="file_name" className="text-slate-700">
-                      File type
-                    </Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="File type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Excel">Excel</SelectItem>
-                        <SelectItem value="PDF">PDF</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button
-                    className="w-full bg-green-500 hover:bg-green-600"
-                    type="submit"
-                  >
-                    Generate
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </div>
-        <Separator className="my-4" />
-        <div className="flex justify-between flex-col items-start gap-2 md:flex-row">
-          <div className="flex h-5 items-center space-x-4 text-sm">
-            <Link className="text-slate-500 text-sm" href={"/product"}>
-              Product
-            </Link>
-            <Separator orientation="vertical" />
-            <Link className="text-slate-500 text-sm" href={"/"}>
-              Archive
-            </Link>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Sort */}
-            <Input
-              className="w-full md:w-64"
-              type="text"
-              placeholder="Search..."
-            />
-            <Select>
-              <SelectTrigger className="w-full md:w-[150px]">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Name</SelectItem>
-                <SelectItem value="dark">Price</SelectItem>
-                <SelectItem value="system">Date Added</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="flex justify-between flex-col items-start gap-2 lg:items-center lg:flex-row">
+        <div className="space-y-1">
+          <h2 className="text-slate-700 font-semibold text-md lg:text-xl">
+            Product
+          </h2>
+          <p className="text-slate-500 text-xs lg:text-sm">
+            Manage the shop products.
+          </p>
         </div>
       </div>
-      <Table className="whitespace-nowrap">
-        <TableCaption>
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  2
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead></TableHead>
-            <TableHead className="w-[150px]">Barcode</TableHead>
-            <TableHead>Product Name</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Stock</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <TableRow key={index} className="text-slate-500">
-              <TableCell>
-                <Checkbox />
-              </TableCell>
-              <TableCell>
-                <Barcode value={"8129375102379"} width={1.2} height={20} />
-              </TableCell>
-              <TableCell className="font-medium flex items-center gap-2 whitespace-break-spaces">
-                <Image
-                  src={
-                    "https://morueats.com/cdn/shop/products/SamyangBuldakCheeseHotChickenFlavourRamen.png?v=1677898969"
-                  }
-                  alt="Product Image"
-                  width={60}
-                  height={100}
-                  loading="lazy"
-                />
-                <h3>Samyang Buldak Chesse</h3>
-              </TableCell>
-              <TableCell>Noodles</TableCell>
-              <TableCell>₱86.00</TableCell>
-              <TableCell>56</TableCell>
-              <TableCell className="text-green-500">Active</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2 justify-end">
-                  <Link href="#">Edit</Link>
-                  <Separator className="h-5" orientation="vertical" />
-                  <Link href="#">Delete</Link>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <div className="py-4 flex sm:flex-row justify-between flex-col items-start gap-2">
+        <div className="flex items-center space-x-2">
+          <Button onClick={() => router.push("/product/create")} variant={"default"} className="bg-green-500 hover:bg-green-600">
+            Create
+          </Button>
+          <ProductExportDialog />
+        </div>
+        <div className="flex items-center gap-2">
+          <Input className="w-full md:w-96" type="text" placeholder="Search Product Name or UPC number..." onKeyUp={handleSearch} />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">Sort by</Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full flex flex-col gap-2">
+            <div className="space-y-2">
+              <h4 className="font-medium leading-none">Sort Product</h4>
+            </div>
+              <Select onValueChange={handleSortChange}>
+                <SelectTrigger className="w-full md:w-[200px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">All</SelectItem>
+                  <SelectItem value="Name">Name</SelectItem>
+                  <SelectItem value="Price">Price</SelectItem>
+                  <SelectItem value="Date Added">Date Added</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select onValueChange={handleSortByCategory}>
+                <SelectTrigger className="w-full md:w-[200px]">
+                  <SelectValue placeholder="Sort by Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {category.map((item: CategoriesInterface) => (
+                    <SelectItem key={item.category_id} value={item.category_id}>{item.category_name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </PopoverContent>
+          </Popover>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <EllipsisVertical size={14} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-auto">
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="cursor-pointer" asChild>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button className="flex items-center justify-center gap-2 w-full" variant="link" disabled={selected.length > 0 ? false : true}><Trash size={14} /> Delete</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will remove <span className="text-red-500 font-medium">{selected.length} Products</span> from the list.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDelete}>{loading ? (<div className="flex items-center justify-center space-x-2">
+                          <Loader size={14} className="animate-spin" />
+                          <p>Deleting...</p>
+                        </div>) : (<p>Delete</p>)}</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+      <Separator />
+      <ProductTable />
     </div>
   );
 }

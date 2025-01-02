@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
           </aside>
           <nav className="md:place-self-center md:justify-self-end">
-            <div className="grid grid-flow-col gap-2">
+            <div className="flex items-center justify-start gap-2">
               <Link href={"#"}>
                 <TwitterIcon className="text-green-600 hover:text-green-600"/>
               </Link>

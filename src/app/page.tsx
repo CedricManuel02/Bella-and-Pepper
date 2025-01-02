@@ -41,7 +41,11 @@ export default function Home() {
       {/* Category Section */}
       <CategoryCarousel />
       {/* Product Section */}
-      <ProductContainer />
+      <ProductContainer text={"Noodles"} url={"/category/Noodles"} />
+      {/* Product Section */}
+      <ProductContainer text={"Snacks"} url={"/category/Snacks"} />
+      {/* Product Section */}
+      <ProductContainer text={"Drinks"} url={"/category/Drinks"} />
     </div>
   );
 }

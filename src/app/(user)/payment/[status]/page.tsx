@@ -2,11 +2,33 @@
 import { Button } from "@/components/ui/button";
 import { CircleCheck, CircleX } from "lucide-react";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Payment() {
   const { status } = useParams();
-
+  useEffect(() => {
+    async function updateCheckout() {
+      const options = {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+          authorization: 'Basic c2tfdGVzdF9Mbm9rM2FzWlF1RFdOMVRzRll5MVQ1ZVM6'
+        },
+        body: JSON.stringify({
+          data: {
+            attributes: {url: 'http://localhost:3001/api/v1/webhooks-test', events: ['payment.paid']}
+          }
+        })
+      };
+      
+      fetch('https://api.paymongo.com/v1/webhooks', options)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+    }
+    updateCheckout();
+  }, []);
   return (
     <div className="w-full min-h-screen h-auto flex flex-col gap-4 items-center justify-center px-4">
       {status === "success" ? (
